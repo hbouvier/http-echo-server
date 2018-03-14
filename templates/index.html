@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="/public/manifest.json">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <title> HTTP Echo Server </title>
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-header text-center">Request</h3>
+              <table class="table">
+                <tbody>
+                  <tr> <th style="width: 10%" scope="row"> Method </th> <td style="width: 90%"> {{ .Method }} </td> </tr>
+                  <tr> <th style="width: 10%" scope="row"> Proto </th> <td style="width: 90%"> {{ .Proto }} </td> </tr>
+                  <tr> <th style="width: 10%" scope="row"> Host </th> <td style="width: 90%"> {{ .Host }} </td> </tr>
+                  <tr> <th style="width: 10%" scope="row"> URL </th> <td style="width: 90%"> {{ .Path }} </td> </tr>
+                  <tr> 
+                    <th style="width: 10%" scope="row"> Query </th> 
+                    <td style="width: 90%">
+                      {{ range $name, $values := .Params }}
+                        {{ range $value := $values }}
+                          <pre>{{ $name }} = {{ $value }} </pre>
+                        {{ end }}
+                      {{ end }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row"><div class="col-lg"><br/></div></div>
+
+      <div class="row">
+        <div class="col-lg">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-header text-center">Request header</h3>
+              <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{ range $row := .Headers }}
+                    {{ range $row.Value }}
+                      <tr>
+                        <td> <span class="text-nowrap"> {{ $row.Key }} </span></td>
+                        <td> {{ . }} </td>
+                      </tr>
+                    {{ end }}
+                  {{ end }}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row"><div class="col-lg"><br/></div></div>
+
+      <div class="row">
+        <div class="col-lg">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-header text-center">Request body</h3>
+              {{ .Body }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
