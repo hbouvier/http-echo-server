@@ -1,8 +1,19 @@
+# ---- Build container
+#
+FROM golang:1.11 AS build
+
+WORKDIR /go/src/app
+COPY . .
+RUN go install -v ./...
+
+# ---- Runtime container
+#
 FROM alpine
 
 WORKDIR /app
 
-COPY release/bin/linux_amd64/ /usr/local/bin/
+COPY --from=build /go/bin/app /app/http-echo-server
+
 COPY public /app/public
 COPY templates /app/templates
 
