@@ -8,7 +8,7 @@ RUN go install -v ./...
 
 # ---- Runtime container
 #
-FROM alpine
+FROM ubuntu
 
 WORKDIR /app
 
