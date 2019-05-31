@@ -21,4 +21,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD http-echo-server
+CMD /app/http-echo-server
